@@ -5,11 +5,22 @@ using System.Linq;
 
 namespace Pokedex.BusinessLayer
 {
-    public class PokemonService
+    public interface IPokemonService
+    {
+        void Add(Pokemon pokemon);
+        void Delete(Pokemon pokemon);
+        List<Pokemon> GetAll();
+        Pokemon GetById(int id);
+        Pokemon GetByName(string name);
+        List<Pokemon> GetByType(string type);
+        void Update(Pokemon pokemon);
+    }
+
+    public class PokemonService : IPokemonService
     {
         public void Add(Pokemon pokemon)
         {
-            using(var context = new PokedexDbContext())
+            using (var context = new PokedexDbContext())
             {
                 context.Pokemons.Add(pokemon);
                 context.SaveChanges();
@@ -30,6 +41,25 @@ namespace Pokedex.BusinessLayer
             {
                 return context.Pokemons
                     .FirstOrDefault(pokemon => pokemon.Id == id);
+            }
+        }
+
+        public List<Pokemon> GetByType(string type)
+        {
+            using (var context = new PokedexDbContext())
+            {
+                return context.Pokemons
+                    .Where(pokemon => pokemon.Type == type)
+                    .ToList();
+            }
+        }
+
+        public Pokemon GetByName(string name)
+        {
+            using (var context = new PokedexDbContext())
+            {
+                return context.Pokemons
+                    .FirstOrDefault(pokemon => pokemon.Name == name);
             }
         }
 
