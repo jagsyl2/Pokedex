@@ -1,5 +1,6 @@
 ﻿using Pokedex.DataLayer;
 using Pokedex.DataLayer.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -19,9 +20,16 @@ namespace Pokedex.BusinessLayer
 
     public class PokemonService : IPokemonService
     {
+        private readonly Func<IPokedexDbContext> _dbContextFactoryMethod;
+
+        public PokemonService(Func<IPokedexDbContext> dbContextFactoryMethod)
+        {
+            _dbContextFactoryMethod = dbContextFactoryMethod;
+        }
+
         public void Add(Pokemon pokemon)
         {
-            using (var context = new PokedexDbContext())
+            using (var context = _dbContextFactoryMethod())
             {
                 context.Pokemons.Add(pokemon);
                 context.SaveChanges();
@@ -30,7 +38,7 @@ namespace Pokedex.BusinessLayer
 
         public List<Pokemon> GetAll()
         {
-            using (var context = new PokedexDbContext())
+            using (var context = _dbContextFactoryMethod())
             {
                 return context.Pokemons.ToList();
             }
@@ -38,7 +46,7 @@ namespace Pokedex.BusinessLayer
 
         public Pokemon GetById(int id)
         {
-            using (var context = new PokedexDbContext())
+            using (var context = _dbContextFactoryMethod())
             {
                 return context.Pokemons
                     .FirstOrDefault(pokemon => pokemon.Id == id);
@@ -47,7 +55,7 @@ namespace Pokedex.BusinessLayer
 
         public List<Pokemon> GetByType(PokemonTypes type)
         {
-            using (var context = new PokedexDbContext())
+            using (var context = _dbContextFactoryMethod())
             {
                 return context.Pokemons
                     .Where(pokemon => pokemon.Type1 == type || pokemon.Type2 == type)
@@ -57,7 +65,7 @@ namespace Pokedex.BusinessLayer
 
         public List<Pokemon> GetByTypes(PokemonTypes type, PokemonTypes kind)
         {
-            using (var context = new PokedexDbContext())
+            using (var context = _dbContextFactoryMethod())
             {
                 return context.Pokemons
                     .Where(pokemon => (pokemon.Type1 ==type || pokemon.Type2 == type) && (pokemon.Type1 == kind || pokemon.Type2 == kind))
@@ -67,7 +75,7 @@ namespace Pokedex.BusinessLayer
 
         public Pokemon GetByName(string name)
         {
-            using (var context = new PokedexDbContext())
+            using (var context = _dbContextFactoryMethod())
             {
                 return context.Pokemons
                     .FirstOrDefault(pokemon => pokemon.Name == name);
@@ -76,7 +84,7 @@ namespace Pokedex.BusinessLayer
 
         public void Update(Pokemon pokemon)
         {
-            using (var context = new PokedexDbContext())
+            using (var context = _dbContextFactoryMethod())
             {
                 context.Pokemons.Update(pokemon);
                 context.SaveChanges();
@@ -85,7 +93,7 @@ namespace Pokedex.BusinessLayer
 
         public void Delete(Pokemon pokemon)
         {
-            using (var context = new PokedexDbContext())
+            using (var context = _dbContextFactoryMethod())
             {
                 context.Pokemons.Remove(pokemon);
                 context.SaveChanges();

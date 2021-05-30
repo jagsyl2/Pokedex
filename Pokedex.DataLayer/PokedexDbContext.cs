@@ -9,6 +9,7 @@ namespace Pokedex.DataLayer
     {
         DbSet<Pokemon> Pokemons { get; set; }
         DatabaseFacade Database { get; }
+        int SaveChanges();
     }
 
     public class PokedexDbContext : DbContext, IPokedexDbContext
