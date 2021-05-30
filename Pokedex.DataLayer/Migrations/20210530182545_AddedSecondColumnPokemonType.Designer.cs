@@ -2,15 +2,17 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Pokedex.DataLayer;
 
 namespace Pokedex.DataLayer.Migrations
 {
     [DbContext(typeof(PokedexDbContext))]
-    partial class PokedexDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210530182545_AddedSecondColumnPokemonType")]
+    partial class AddedSecondColumnPokemonType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

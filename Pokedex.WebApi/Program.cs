@@ -3,6 +3,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Builder;
 using Unity.Microsoft.DependencyInjection;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using Microsoft.OpenApi.Models;
+using System;
+using System.Reflection;
+using System.IO;
 
 namespace Pokedex.WebApi
 {
@@ -10,7 +15,7 @@ namespace Pokedex.WebApi
     {
         static void Main(string[] args)
         {
-            //var container = new UnityDiContainerProvider().GetContainer();
+            var container = new UnityDiContainerProvider().GetContainer();
 
             WebHost
                 .CreateDefaultBuilder()
@@ -18,7 +23,8 @@ namespace Pokedex.WebApi
                 .ConfigureServices(services =>
                 {
                     services.AddMvc();
-                    //services.AddSwaggerGen(SwaggerDocsConfig);
+                    services.AddSwaggerGen(SwaggerDocsConfig);
+
                 })
                 .Configure(app =>
                 {
@@ -28,45 +34,45 @@ namespace Pokedex.WebApi
                         endpoints.MapControllers();
                     });
                     app.UseCors();
-                    //app.UseSwagger();
-                    //app.UseSwaggerUI(c =>
-                    //{
-                    //c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebApiExample V1");
-                    //c.RoutePrefix = string.Empty;
-                    //});
+                    app.UseSwagger();
+                    app.UseSwaggerUI(c =>
+                    {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Pokedex_V1");
+                    c.RoutePrefix = string.Empty;
+                    });
+
                 })
                 .UseUrls("http://*:10500")
                 .Build()
                 .Run();
         }
 
-        //private static void SwaggerDocsConfig(SwaggerGenOptions genOptions)
-        //{
-        //    genOptions.SwaggerDoc(
-        //        "v1",
-        //        new OpenApiInfo
-        //        {
-        //            Version = "v1",
-        //            Title = "WebApiExample",
-        //            Description = "A simple example ASP.NET Core Web API",
-        //            TermsOfService = new Uri("https://webapiexamples.project.com/terms"),
-        //            Contact = new OpenApiContact
-        //            {
-        //                Name = "Jakub Bulczak",
-        //                Email = "kuba@codementors.pl",
-        //                Url = new Uri("https://www.linkedin.com/in/jakub-bulczak-21873064/")
-        //            },
-        //            License = new OpenApiLicense
-        //            {
-        //                Name = "Use some license",
-        //                Url = new Uri("https://webapiexamples.project.com/license")
-        //            }
-        //        });
+        private static void SwaggerDocsConfig(SwaggerGenOptions genOptions)
+        {
+            genOptions.SwaggerDoc(
+                "v1",
+                new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "PokedexApp",
+                    Description = "A simple application that provides endpoints to manage pokemons",
+                    //TermsOfService = new Uri("https://webapiexamples.project.com/terms"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Sylwia Ignerowicz",
+                        Email = "sylwiaignerowicz@gmail.com",
+                        Url = new Uri("https://www.linkedin.com/in/sylwia-ignerowicz-2b3aa8129/")
+                    },
+                    //License = new OpenApiLicense
+                    //{
+                    //    Name = "Use some license",
+                    //    Url = new Uri("https://webapiexamples.project.com/license")
+                    //}
+                });
 
-        //    //Descriptions from summaries requires checking up a checkbox: RightClick on project -> Properties -> Build -> XML Documentation file . Leave the default path value.
-        //    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-        //    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-        //    genOptions.IncludeXmlComments(xmlPath);
-        //}
+            var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+            genOptions.IncludeXmlComments(xmlPath);
+        }
     }
 }

@@ -12,7 +12,8 @@ namespace Pokedex.BusinessLayer
         List<Pokemon> GetAll();
         Pokemon GetById(int id);
         Pokemon GetByName(string name);
-        List<Pokemon> GetByType(string type);
+        List<Pokemon> GetByType(PokemonTypes type);
+        List<Pokemon> GetByTypes(PokemonTypes type, PokemonTypes kind);
         void Update(Pokemon pokemon);
     }
 
@@ -44,12 +45,22 @@ namespace Pokedex.BusinessLayer
             }
         }
 
-        public List<Pokemon> GetByType(string type)
+        public List<Pokemon> GetByType(PokemonTypes type)
         {
             using (var context = new PokedexDbContext())
             {
                 return context.Pokemons
-                    .Where(pokemon => pokemon.Type == type)
+                    .Where(pokemon => pokemon.Type1 == type || pokemon.Type2 == type)
+                    .ToList();
+            }
+        }
+
+        public List<Pokemon> GetByTypes(PokemonTypes type, PokemonTypes kind)
+        {
+            using (var context = new PokedexDbContext())
+            {
+                return context.Pokemons
+                    .Where(pokemon => (pokemon.Type1 ==type || pokemon.Type2 == type) && (pokemon.Type1 == kind || pokemon.Type2 == kind))
                     .ToList();
             }
         }
