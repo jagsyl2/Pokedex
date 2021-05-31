@@ -16,7 +16,7 @@ namespace Pokedex.WebApi.Controllers
         }
 
         /// <summary>
-        /// Gets all Pokemon.
+        /// Get all Pokemon.
         /// </summary>
         [HttpGet]
         public List<Pokemon> GetAll()
@@ -25,7 +25,7 @@ namespace Pokedex.WebApi.Controllers
         }
 
         /// <summary>
-        /// Gets a specific Pokemon.
+        /// Get a specific Pokemon.
         /// </summary>
         /// <param name="id">Enter the Pokemon ID</param>
         [HttpGet("{id}")]
@@ -35,79 +35,79 @@ namespace Pokedex.WebApi.Controllers
         }
 
         /// <summary>
-        /// Gets pokemon of a given type.
+        /// Get pokemon of a given type.
         /// </summary>
         /// <param name="type">
         /// Pokemon Types:
         /// 
-        ///     Normal = 0,
-        ///     Fight = 1,
-        ///     Flying = 2,
-        ///     Poison = 3,
-        ///     Ground = 4,
-        ///     Rock = 5,
-        ///     Bug = 6,
-        ///     Ghost = 7,
-        ///     Steel = 8,
-        ///     Fire = 9,
-        ///     Water = 10,
-        ///     Grass = 11,
-        ///     Electric = 12,
-        ///     Psychic = 13,
-        ///     Ice = 14,
-        ///     Dragon = 15,
-        ///     Dark = 16,
-        ///     Fairy = 17.
+        ///    None = 0,
+        ///    Normal = 1,
+        ///    Fight = 2,
+        ///    Flying = 3,
+        ///    Poison = 4,
+        ///    Ground = 5,
+        ///    Rock = 6,
+        ///    Bug = 7,
+        ///    Ghost = 8,
+        ///    Steel = 9,
+        ///    Fire = 10,
+        ///    Water = 11,
+        ///    Grass = 12,
+        ///    Electric = 13,
+        ///    Psychic = 14,
+        ///    Ice = 15,
+        ///    Dragon = 16,
+        ///    Dark = 17,
+        ///    Fairy = 18.
         /// </param>
         [HttpGet("type")]
-        public List<Pokemon> GetByType(PokemonTypes type)
+        public List<Pokemon> GetByType([FromQuery] PokemonTypes type)
         {
             return _pokemonService.GetByType(type);
         }
 
         /// <summary>
-        /// Gets pokemon of a given two types.
+        /// Get pokemon of a given two types.
         /// </summary>
         /// <remarks>
         /// Pokemon Types:
         /// 
-        ///     Normal = 0,
-        ///     Fight = 1,
-        ///     Flying = 2,
-        ///     Poison = 3,
-        ///     Ground = 4,
-        ///     Rock = 5,
-        ///     Bug = 6,
-        ///     Ghost = 7,
-        ///     Steel = 8,
-        ///     Fire = 9,
-        ///     Water = 10,
-        ///     Grass = 11,
-        ///     Electric = 12,
-        ///     Psychic = 13,
-        ///     Ice = 14,
-        ///     Dragon = 15,
-        ///     Dark = 16,
-        ///     Fairy = 17.
+        ///    None = 0,
+        ///    Normal = 1,
+        ///    Fight = 2,
+        ///    Flying = 3,
+        ///    Poison = 4,
+        ///    Ground = 5,
+        ///    Rock = 6,
+        ///    Bug = 7,
+        ///    Ghost = 8,
+        ///    Steel = 9,
+        ///    Fire = 10,
+        ///    Water = 11,
+        ///    Grass = 12,
+        ///    Electric = 13,
+        ///    Psychic = 14,
+        ///    Ice = 15,
+        ///    Dragon = 16,
+        ///    Dark = 17,
+        ///    Fairy = 18.
         /// </remarks>
-        /// <param name="type1">Choose the first type</param>
-        /// <param name="type2">Choose the second type</param>
+        /// <param name="type">Choose the first type</param>
+        /// <param name="kind">Choose the second type</param>
         [HttpGet("types")]
-        public List<Pokemon> GetByTypes(PokemonTypes type1, PokemonTypes type2)
+        public List<Pokemon> GetByTypes([FromQuery] PokemonTypes type, [FromQuery] PokemonTypes kind)
         {
-            return _pokemonService.GetByTypes(type1, type2);
+            return _pokemonService.GetByTypes(type, kind);
         }
 
         /// <summary>
-        /// Gets pokemon by name.
+        /// Get pokemon by name.
         /// </summary>
         /// <param name="name">Enter the Pokemon name</param>
         [HttpGet("name")]
-        public Pokemon GetByName(string name)
+        public Pokemon GetByName([FromQuery] string name)
         {
             return _pokemonService.GetByName(name);
         }
-
-
     }
 }

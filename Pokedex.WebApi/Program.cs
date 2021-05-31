@@ -40,7 +40,6 @@ namespace Pokedex.WebApi
                     c.SwaggerEndpoint("/swagger/v1/swagger.json", "Pokedex_V1");
                     c.RoutePrefix = string.Empty;
                     });
-
                 })
                 .UseUrls("http://*:10500")
                 .Build()
@@ -56,18 +55,12 @@ namespace Pokedex.WebApi
                     Version = "v1",
                     Title = "PokedexApp",
                     Description = "A simple application that provides endpoints to manage pokemons",
-                    //TermsOfService = new Uri("https://webapiexamples.project.com/terms"),
                     Contact = new OpenApiContact
                     {
                         Name = "Sylwia Ignerowicz",
                         Email = "sylwiaignerowicz@gmail.com",
                         Url = new Uri("https://www.linkedin.com/in/sylwia-ignerowicz-2b3aa8129/")
                     },
-                    //License = new OpenApiLicense
-                    //{
-                    //    Name = "Use some license",
-                    //    Url = new Uri("https://webapiexamples.project.com/license")
-                    //}
                 });
 
             var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";

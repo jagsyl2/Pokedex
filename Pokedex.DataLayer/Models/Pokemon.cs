@@ -1,41 +1,33 @@
-﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-
-namespace Pokedex.DataLayer.Models
+﻿namespace Pokedex.DataLayer.Models
 {
     public enum PokemonTypes
     {
-        Normal = 0,
-        Fight = 1,
-        Flying = 2,
-        Poison = 3,
-        Ground = 4,
-        Rock = 5,
-        Bug = 6,
-        Ghost = 7,
-        Steel = 8,
-        Fire = 9,
-        Water = 10,
-        Grass = 11,
-        Electric = 12,
-        Psychic = 13,
-        Ice = 14,
-        Dragon = 15,
-        Dark = 16,
-        Fairy = 17,
+        None = 0,
+        Normal = 1,
+        Fight = 2,
+        Flying = 3,
+        Poison = 4,
+        Ground = 5,
+        Rock = 6,
+        Bug = 7,
+        Ghost = 8,
+        Steel = 9,
+        Fire = 10,
+        Water = 11,
+        Grass = 12,
+        Electric = 13,
+        Psychic = 14,
+        Ice = 15,
+        Dragon = 16,
+        Dark = 17,
+        Fairy = 18,
     }
 
     public class Pokemon
     {
         public int Id { get; set; }
-
-        //[Required]
         public string Name { get; set; }
-        
-        //[Required]
         public PokemonTypes Type1 { get; set; }
-        
-        //[DefaultValue(null)]
         public PokemonTypes? Type2 { get; set; }
     }
 }

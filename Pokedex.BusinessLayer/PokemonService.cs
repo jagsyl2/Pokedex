@@ -14,7 +14,7 @@ namespace Pokedex.BusinessLayer
         Pokemon GetById(int id);
         Pokemon GetByName(string name);
         List<Pokemon> GetByType(PokemonTypes type);
-        List<Pokemon> GetByTypes(PokemonTypes type, PokemonTypes kind);
+        List<Pokemon> GetByTypes(PokemonTypes type, PokemonTypes? kind);
         void Update(Pokemon pokemon);
     }
 
@@ -29,11 +29,17 @@ namespace Pokedex.BusinessLayer
 
         public void Add(Pokemon pokemon)
         {
-            using (var context = _dbContextFactoryMethod())
-            {
-                context.Pokemons.Add(pokemon);
-                context.SaveChanges();
-            }
+            //if (!(pokemon.Type1 != 0 && pokemon.Type1 != pokemon.Type2))
+            //{
+            //    return Request.Create;
+            //}
+            //else
+            //{ 
+                using (var context = _dbContextFactoryMethod())
+                {
+                    context.Pokemons.Add(pokemon);
+                    context.SaveChanges();
+                }
         }
 
         public List<Pokemon> GetAll()
@@ -63,7 +69,7 @@ namespace Pokedex.BusinessLayer
             }
         }
 
-        public List<Pokemon> GetByTypes(PokemonTypes type, PokemonTypes kind)
+        public List<Pokemon> GetByTypes(PokemonTypes type, PokemonTypes? kind)
         {
             using (var context = _dbContextFactoryMethod())
             {
