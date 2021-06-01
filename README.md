@@ -7,7 +7,7 @@ Simple application that provides endpoints to manage pokemons
 * [Setup](#setup)
 * [Pokemon Types](#pokemon-types)
 * [Examples of use for Postman](#examples-of-use-for-postman)
-* [Code example](#code-example)
+* [Code examples](#code-examples)
 
 ## General info
 The Pokedex app contains the WebApi layer for communication via HTTP and it's extended with Swagger.
@@ -51,7 +51,8 @@ Pokemon Types:
 
 
 ## Examples of use for Postman
-To create a Pokemon: POST http://localhost:10500/api/pokemon 
+To create a Pokemon: 
+POST http://localhost:10500/api/pokemon 
 
 Sample request:
 JSON
@@ -64,7 +65,8 @@ JSON
 If you get code 400 it may mean that the pokemon has incorrectly defined types
 
 
-To update the Pokemon: PUT http://localhost:10500/api/pokemon/id
+To update the Pokemon: 
+PUT http://localhost:10500/api/pokemon/id
 
 Sample request:
 JSON
@@ -75,7 +77,8 @@ JSON
 }
 
 
-To delete the Pokemon: DELETE http://localhost:10500/api/pokemon/id
+To delete the Pokemon: 
+DELETE http://localhost:10500/api/pokemon/id
 
 
 ## Code Examples
