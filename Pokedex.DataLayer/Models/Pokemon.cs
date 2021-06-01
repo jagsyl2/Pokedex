@@ -28,6 +28,6 @@
         public int Id { get; set; }
         public string Name { get; set; }
         public PokemonTypes Type1 { get; set; }
-        public PokemonTypes? Type2 { get; set; }
+        public PokemonTypes Type2 { get; set; }
     }
 }

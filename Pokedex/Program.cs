@@ -85,7 +85,6 @@ namespace Pokedex
                 }
             }
             while (!_exit);
-
         }
 
         private void DeletePokemon()
@@ -156,8 +155,14 @@ namespace Pokedex
                 Type2 = _ioHelper.GetPokemonTypeFromUser("Enter second type:"),
             };
 
-            _pokemonService.Add(newPokemon);
-            Console.WriteLine("Pokemon added successfully");
+            if (_pokemonService.Add(newPokemon))
+            {
+                Console.WriteLine("Pokemon added successfully");
+            }
+            else 
+            {
+                Console.WriteLine("Pokemon has incorrectly defined types. Try again...");
+            }
         }
 
         private void PrintAllPokemon(List<Pokemon> pokemon)

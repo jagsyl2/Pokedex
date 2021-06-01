@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Pokedex.BusinessLayer;
 using Pokedex.DataLayer.Models;
 
@@ -42,10 +43,15 @@ namespace Pokedex.WebApi.Controllers
         ///    Dark = 17,
         ///    Fairy = 18.
         /// </remarks>
+        /// <response code="400">If the pokemon has incorrectly defined types</response> 
         [HttpPost]
-        public void PostPokemon([FromBody] Pokemon pokemon)
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+
+        public int PostPokemon([FromBody] Pokemon pokemon)
         {
-            _pokemonService.Add(pokemon);
+            var statusCode = _pokemonService.Add(pokemon) ? HttpContext.Response.StatusCode = 200 : HttpContext.Response.StatusCode = 400;
+            
+            return statusCode;
         }
 
         /// <summary>
@@ -66,10 +72,7 @@ namespace Pokedex.WebApi.Controllers
         [HttpDelete("{id}")]
         public void DeletePokemon(int id)
         {
-            _pokemonService.Delete(new Pokemon 
-            {
-                Id = id,
-            });
+            _pokemonService.Delete(new Pokemon { Id = id });
         }
     }
 }
