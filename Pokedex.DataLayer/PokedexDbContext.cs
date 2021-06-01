@@ -1,9 +1,18 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Pokedex.DataLayer.Models;
+using System;
 
 namespace Pokedex.DataLayer
 {
-    public class PokedexDbContext : DbContext
+    public interface IPokedexDbContext : IDisposable
+    {
+        DbSet<Pokemon> Pokemons { get; set; }
+        DatabaseFacade Database { get; }
+        int SaveChanges();
+    }
+
+    public class PokedexDbContext : DbContext, IPokedexDbContext
     {
         public DbSet<Pokemon> Pokemons { get; set; }
 
