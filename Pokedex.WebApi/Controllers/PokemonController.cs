@@ -47,11 +47,9 @@ namespace Pokedex.WebApi.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
 
-        public int PostPokemon([FromBody] Pokemon pokemon)
+        public void PostPokemon([FromBody] Pokemon pokemon)
         {
             var statusCode = _pokemonService.Add(pokemon) ? HttpContext.Response.StatusCode = 200 : HttpContext.Response.StatusCode = 400;
-            
-            return statusCode;
         }
 
         /// <summary>

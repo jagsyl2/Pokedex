@@ -92,12 +92,12 @@ namespace Pokedex.WebApi.Controllers
         ///    Dark = 17,
         ///    Fairy = 18.
         /// </remarks>
-        /// <param name="type">Choose the first type</param>
-        /// <param name="kind">Choose the second type</param>
+        /// <param name="type1">Choose the first type</param>
+        /// <param name="type2">Choose the second type</param>
         [HttpGet("types")]
-        public List<Pokemon> GetByTypes([FromQuery] PokemonTypes type, [FromQuery] PokemonTypes kind)
+        public List<Pokemon> GetByTypes([FromQuery] PokemonTypes type1, [FromQuery] PokemonTypes type2)
         {
-            return _pokemonService.GetByTypes(type, kind);
+            return _pokemonService.GetByTypes(type1, type2);
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace Pokedex.WebApi.Controllers
         /// </summary>
         /// <param name="name">Enter the Pokemon name</param>
         [HttpGet("name")]
-        public Pokemon GetByName([FromQuery] string name)
+        public List<Pokemon> GetByName([FromQuery] string name)
         {
             return _pokemonService.GetByName(name);
         }

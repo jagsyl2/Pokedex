@@ -109,9 +109,9 @@ namespace Pokedex
 
         private void FindPokemonBy2Types()
         {
-            var type = _ioHelper.GetPokemonTypeFromUser("Provide pokemon type");
-            var kind = _ioHelper.GetPokemonTypeFromUser("Provide pokemon second type");
-            var pokemon = _pokemonService.GetByTypes(type, kind);
+            var type1 = _ioHelper.GetPokemonTypeFromUser("Provide pokemon type");
+            var type2 = _ioHelper.GetPokemonTypeFromUser("Provide pokemon second type");
+            var pokemon = _pokemonService.GetByTypes(type1, type2);
 
             PrintAllPokemon(pokemon);
         }
@@ -129,7 +129,7 @@ namespace Pokedex
             var name = _ioHelper.GetStringFromUser("Provide pokemon name");
             var pokemon = _pokemonService.GetByName(name);
 
-            _ioHelper.PrintPokemon(pokemon);
+            PrintAllPokemon(pokemon);
         }
 
         private void FindPokemonById()

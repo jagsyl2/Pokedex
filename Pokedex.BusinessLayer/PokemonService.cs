@@ -12,9 +12,9 @@ namespace Pokedex.BusinessLayer
         void Delete(Pokemon pokemon);
         List<Pokemon> GetAll();
         Pokemon GetById(int id);
-        Pokemon GetByName(string name);
+        List<Pokemon> GetByName(string name);
         List<Pokemon> GetByType(PokemonTypes type);
-        List<Pokemon> GetByTypes(PokemonTypes type, PokemonTypes kind);
+        List<Pokemon> GetByTypes(PokemonTypes type1, PokemonTypes type2);
         void Update(Pokemon pokemon);
     }
 
@@ -70,22 +70,23 @@ namespace Pokedex.BusinessLayer
             }
         }
 
-        public List<Pokemon> GetByTypes(PokemonTypes type, PokemonTypes kind)
+        public List<Pokemon> GetByTypes(PokemonTypes type1, PokemonTypes type2)
         {
             using (var context = _dbContextFactoryMethod())
             {
                 return context.Pokemons
-                    .Where(pokemon => (pokemon.Type1 ==type || pokemon.Type2 == type) && (pokemon.Type1 == kind || pokemon.Type2 == kind))
+                    .Where(pokemon => (pokemon.Type1 ==type1 || pokemon.Type2 == type1) && (pokemon.Type1 == type2 || pokemon.Type2 == type2))
                     .ToList();
             }
         }
 
-        public Pokemon GetByName(string name)
+        public List<Pokemon> GetByName(string name)
         {
             using (var context = _dbContextFactoryMethod())
             {
                 return context.Pokemons
-                    .FirstOrDefault(pokemon => pokemon.Name == name);
+                    .Where(pokemon => pokemon.Name == name)
+                    .ToList();
             }
         }
 
